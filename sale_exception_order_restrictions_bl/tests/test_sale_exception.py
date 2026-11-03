@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from datetime import timedelta
 
-from odoo import fields
+from odoo import Command, fields
 from odoo.exceptions import AccessError, UserError
 from odoo.tests import Form, TransactionCase, new_test_user, tagged
 
@@ -196,6 +196,46 @@ class TestSaleException(TransactionCase):
         self._detect(order, self.manager)
         with self.assertRaises(UserError):
             order.with_user(self.manager).action_ignore_exceptions()
+
+    def test_quantity_with_decimals(self):
+        """Goods counted in units with decimals stop the order through a blocking rule
+        that nobody ignores, not even the Sales administrator; whole units, goods in
+        kilograms and a service with decimals do not stop it; half a dozen does."""
+        rule = self.env.ref(
+            "sale_exception_order_restrictions_bl.exception_rule_fractional_quantity"
+        )
+        self.assertTrue(rule.active and rule.is_blocking)
+        order = self._order(carrier=self.zone)
+        line = order.order_line.filtered(lambda line: line.product_id == self.product)
+        line.product_uom_qty = 1.5
+        self.assertEqual(self._exceptions(order), rule)
+        self._detect(order, self.manager)
+        with self.assertRaises(UserError):
+            order.with_user(self.manager).action_ignore_exceptions()
+        line.product_uom_qty = 2
+        self.assertFalse(self._exceptions(order))
+        flour = self.env["product.product"].create(
+            {
+                "name": "Flour",
+                "type": "consu",
+                "uom_id": self.env.ref("uom.product_uom_kgm").id,
+            }
+        )
+        installation = self.env["product.product"].create(
+            {"name": "Installation", "type": "service"}
+        )
+        order.order_line = [
+            Command.create({"product_id": flour.id, "product_uom_qty": 1.5}),
+            Command.create({"product_id": installation.id, "product_uom_qty": 0.5}),
+        ]
+        self.assertFalse(self._exceptions(order))
+        line.write(
+            {
+                "product_uom_id": self.env.ref("uom.product_uom_dozen").id,
+                "product_uom_qty": 0.5,
+            }
+        )
+        self.assertEqual(self._exceptions(order), rule)
 
     def test_portal_is_not_braked(self):
         """The customer from the portal (with sudo) is not stopped: it confirms with

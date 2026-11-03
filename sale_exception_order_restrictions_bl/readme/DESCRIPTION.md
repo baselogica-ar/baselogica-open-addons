@@ -9,6 +9,9 @@ rule of the sale exception engine:
 - **Customer's purchase order**: a customer marked "Purchase Order Required" needs its
   number in the Customer Reference.
 - **Urgent order**, with the "Urgent" tag: a Sales administrator confirms it.
+- **Quantity with decimals** of goods counted in units (the unit, a dozen, a pack), like
+  1.5 units: nobody ignores it, the line is fixed. Setting the precision of the
+  quantities to whole numbers is not the same: it rounds without warning.
 - **Expired quotation**: it is not confirmed with its old prices. "Update Prices", shown
   only on the expired quotation, brings today's prices with the same recalculation as
   changing the pricelist, today's date and a new expiration, and leaves the total before

@@ -11,6 +11,7 @@ METHODS = [
     ("_bl_exception_delivery_method", "Delivery method other than the customer's"),
     ("_bl_exception_purchase_order", "Customer's purchase order missing"),
     ("_bl_exception_urgent", "Urgent order"),
+    ("_bl_exception_fractional_quantity", "Goods quantity with decimals"),
 ]
 
 

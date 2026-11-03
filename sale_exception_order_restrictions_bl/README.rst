@@ -35,6 +35,10 @@ exceptions. Each restriction is a rule of the sale exception engine:
   Required" needs its number in the Customer Reference.
 - **Urgent order**, with the "Urgent" tag: a Sales administrator
   confirms it.
+- **Quantity with decimals** of goods counted in units (the unit, a
+  dozen, a pack), like 1.5 units: nobody ignores it, the line is fixed.
+  Setting the precision of the quantities to whole numbers is not the
+  same: it rounds without warning.
 - **Expired quotation**: it is not confirmed with its old prices.
   "Update Prices", shown only on the expired quotation, brings today's
   prices with the same recalculation as changing the pricelist, today's
@@ -65,9 +69,10 @@ Configuration
   addresses follow it).
 - On each pickup delivery method: Customer Collects.
 - The rules, in Sales → Configuration → Sale Exception Rules: a Sales
-  administrator archives the ones not used; a Settings administrator
-  makes blocking the ones nobody may ignore, and creates new rules with
-  a filter.
+  administrator archives the ones not used (a company that sells goods
+  counted in units in fractions archives "Quantity with decimals"); a
+  Settings administrator makes blocking the ones nobody may ignore, and
+  creates new rules with a filter.
 
 Usage
 =====

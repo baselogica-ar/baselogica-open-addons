@@ -383,6 +383,10 @@ valid for any address.</li>
 Required” needs its number in the Customer Reference.</li>
 <li><strong>Urgent order</strong>, with the “Urgent” tag: a Sales administrator
 confirms it.</li>
+<li><strong>Quantity with decimals</strong> of goods counted in units (the unit, a
+dozen, a pack), like 1.5 units: nobody ignores it, the line is fixed.
+Setting the precision of the quantities to whole numbers is not the
+same: it rounds without warning.</li>
 <li><strong>Expired quotation</strong>: it is not confirmed with its old prices.
 “Update Prices”, shown only on the expired quotation, brings today’s
 prices with the same recalculation as changing the pricelist, today’s
@@ -422,9 +426,10 @@ Purchase Order Required (set on the company; its branches and
 addresses follow it).</li>
 <li>On each pickup delivery method: Customer Collects.</li>
 <li>The rules, in Sales → Configuration → Sale Exception Rules: a Sales
-administrator archives the ones not used; a Settings administrator
-makes blocking the ones nobody may ignore, and creates new rules with
-a filter.</li>
+administrator archives the ones not used (a company that sells goods
+counted in units in fractions archives “Quantity with decimals”); a
+Settings administrator makes blocking the ones nobody may ignore, and
+creates new rules with a filter.</li>
 </ul>
 </div>
 <div class="section" id="usage">

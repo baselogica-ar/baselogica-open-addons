@@ -55,6 +55,19 @@
         <field name="exception_type">by_method</field>
         <field name="method">_bl_exception_urgent</field>
     </record>
+    <!-- The quantity with decimals of goods counted in units: never valid, so blocking (nobody ignores it); a company
+         that sells such goods in fractions archives it. -->
+    <record id="exception_rule_fractional_quantity" model="exception.rule">
+        <field name="name">Quantity with decimals</field>
+        <field
+            name="description"
+        >A line has goods counted in units with decimals, like 1.5 units: they are sold whole. Fix the quantity of the line and confirm; this exception is not ignored.</field>
+        <field name="sequence" eval="5" />
+        <field name="model">sale.order</field>
+        <field name="exception_type">by_method</field>
+        <field name="method">_bl_exception_fractional_quantity</field>
+        <field name="is_blocking" eval="True" />
+    </record>
     <!-- The expired quotation: Odoo stops it in the portal ("This offer expired!"), not in the backend. A rule with a
          filter on its "Expired" field, without a method of its own. Duplicating it does not reprice it (Odoo copies the
          prices and only renews the expiration): "Update Prices", shown on the expired quotation, reprices it. -->

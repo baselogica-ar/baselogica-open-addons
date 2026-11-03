@@ -5,9 +5,10 @@
     "summary": "The sales order is not confirmed apart from the customer's form, "
     "without the purchase order the customer requires, urgent or with its quotation "
     'expired ("Update Prices" brings today\'s prices): exception rules that a Sales '
-    "administrator ignores; confirmed orders are locked, and an order with goods "
-    "delivered or invoiced is not cancelled.",
-    "version": "20.0.1.0.0",
+    "administrator ignores; never with a quantity with decimals of goods counted in "
+    "units; confirmed orders are locked, and an order with goods delivered or invoiced "
+    "is not cancelled.",
+    "version": "20.0.1.1.0",
     "category": "Sales/Sales",
     "author": "Base Lógica",
     "website": "https://github.com/baselogica-ar/baselogica-open-addons",

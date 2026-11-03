@@ -90,6 +90,30 @@ class SaleOrder(models.Model):
             customer=customer.display_name,
         )
 
+    def _bl_fractional_quantity(self):
+        """A line of goods counted in units (the unit, or a unit that relates to it,
+        like a dozen or a pack) with decimals, like 1.5 units: goods counted in units
+        are sold whole, and Odoo lets the fraction reach the warehouse. Setting the
+        precision of the quantities to whole numbers is not the same: it rounds
+        without warning, also what the barcode scanner adds up."""
+        self.ensure_one()
+        unit = self.env.ref("uom.product_uom_unit")
+        lines = self.order_line.filtered(
+            lambda line: (
+                not line.display_type
+                and not line.is_delivery
+                and line.product_id.type == "consu"
+                and (line.product_uom_id.parent_path or "").startswith(f"{unit.id}/")
+                and abs(line.product_uom_qty - round(line.product_uom_qty)) > 0.00001
+            )
+        )
+        if not lines:
+            return False
+        return self.env._(
+            "a quantity with decimals in %(products)s",
+            products=", ".join(lines.product_id.mapped("display_name")),
+        )
+
     def _bl_is_urgent(self):
         self.ensure_one()
         tag = self.env.ref(
@@ -108,6 +132,7 @@ class SaleOrder(models.Model):
             self._bl_delivery_method_difference(),
             self._bl_missing_purchase_order(),
             self._bl_is_urgent() and self.env._("the order is urgent"),
+            self._bl_fractional_quantity(),
         )
         rules = (
             self.env["exception.rule"]
@@ -147,6 +172,9 @@ class SaleOrder(models.Model):
 
     def _bl_exception_urgent(self):
         return self.filtered(lambda order: order._bl_is_urgent())
+
+    def _bl_exception_fractional_quantity(self):
+        return self.filtered(lambda order: order._bl_fractional_quantity())
 
     def _action_cancel(self):
         """An order with goods delivered or invoiced is not cancelled: Odoo cancels

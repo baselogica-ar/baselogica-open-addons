@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2026 Base Lógica (baselogica.com)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+    <!-- One rule per restriction, not blocking: the order is not confirmed, the exception says what happens and how
+         to solve it, and a Sales administrator ignores it. Each company archives a rule or makes it blocking in
+         Sales > Configuration > Sale Exception Rules; its change stays when the module is updated. -->
+    <record id="exception_rule_payment_term" model="exception.rule">
+        <field name="name">Payment terms other than the customer's</field>
+        <field
+            name="description"
+        >The order has other payment terms than the customer's form. If it is only for this order, a Sales administrator ignores the exceptions; if the customer changed, fix their form.</field>
+        <field name="sequence" eval="10" />
+        <field name="model">sale.order</field>
+        <field name="exception_type">by_method</field>
+        <field name="method">_bl_exception_payment_term</field>
+    </record>
+    <record id="exception_rule_missing_delivery_method" model="exception.rule">
+        <field name="name">Order with goods and no delivery method</field>
+        <field
+            name="description"
+        >The order carries goods: choose its delivery method.</field>
+        <field name="sequence" eval="20" />
+        <field name="model">sale.order</field>
+        <field name="exception_type">by_method</field>
+        <field name="method">_bl_exception_missing_delivery_method</field>
+    </record>
+    <record id="exception_rule_delivery_method" model="exception.rule">
+        <field name="name">Delivery method other than the customer's</field>
+        <field
+            name="description"
+        >The order has another delivery method than its delivery address or its parent company. If it is only for this order, a Sales administrator ignores the exceptions; if the customer changed, fix the delivery method of the address.</field>
+        <field name="sequence" eval="30" />
+        <field name="model">sale.order</field>
+        <field name="exception_type">by_method</field>
+        <field name="method">_bl_exception_delivery_method</field>
+    </record>
+    <record id="exception_rule_purchase_order" model="exception.rule">
+        <field name="name">Customer's purchase order missing</field>
+        <field
+            name="description"
+        >The customer requires its purchase order: write its number in Customer Reference. If it arrives later, a Sales administrator ignores the exceptions.</field>
+        <field name="sequence" eval="40" />
+        <field name="model">sale.order</field>
+        <field name="exception_type">by_method</field>
+        <field name="method">_bl_exception_purchase_order</field>
+    </record>
+    <record id="exception_rule_urgent" model="exception.rule">
+        <field name="name">Urgent order</field>
+        <field
+            name="description"
+        >A Sales administrator confirms it: they ignore the exceptions and confirm.</field>
+        <field name="sequence" eval="50" />
+        <field name="model">sale.order</field>
+        <field name="exception_type">by_method</field>
+        <field name="method">_bl_exception_urgent</field>
+    </record>
+    <!-- The expired quotation: Odoo stops it in the portal ("This offer expired!"), not in the backend. A rule with a
+         filter on its "Expired" field, without a method of its own. Duplicating it does not reprice it (Odoo copies the
+         prices and only renews the expiration): "Update Prices", shown on the expired quotation, reprices it. -->
+    <record id="exception_rule_expired_quotation" model="exception.rule">
+        <field name="name">Expired quotation</field>
+        <field
+            name="description"
+        >The quotation is past its expiration date and its prices may no longer hold: press "Update Prices" to bring today's prices and a new expiration date. If the customer keeps the quoted prices, a Sales administrator ignores the exceptions.</field>
+        <field name="sequence" eval="60" />
+        <field name="model">sale.order</field>
+        <field name="exception_type">by_domain</field>
+        <field name="domain">[("is_expired", "=", True)]</field>
+    </record>
+</odoo>

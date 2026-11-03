@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2026 Base Lógica (baselogica.com)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- "Update Prices", only on the expired quotation: while it is valid, its prices hold. -->
+    <record id="view_order_form" model="ir.ui.view">
+        <field
+            name="name"
+        >sale.order.form.inherit.sale.exception.order.restrictions.bl</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button
+                    name="action_bl_update_prices"
+                    type="object"
+                    string="Update Prices"
+                    class="btn-primary"
+                    invisible="not is_expired"
+                    help="Brings today's prices, with the same recalculation as changing the pricelist, and a new expiration date."
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- The main exception column, in the optional columns menu: each user hides it or shows it again. -->
+    <record id="view_quotation_tree" model="ir.ui.view">
+        <field
+            name="name"
+        >sale.order.list.quotation.inherit.sale.exception.order.restrictions.bl</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_exception.view_quotation_tree" />
+        <field name="arch" type="xml">
+            <field name="main_exception_id" position="attributes">
+                <attribute name="optional">show</attribute>
+            </field>
+        </field>
+    </record>
+    <record id="view_order_tree" model="ir.ui.view">
+        <field
+            name="name"
+        >sale.order.list.inherit.sale.exception.order.restrictions.bl</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_exception.view_order_tree" />
+        <field name="arch" type="xml">
+            <field name="main_exception_id" position="attributes">
+                <attribute name="optional">show</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2026 Base Lógica (baselogica.com)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- "Customer Collects", on the delivery method: a pickup may differ from the method of the delivery address. -->
+    <record id="view_delivery_carrier_form" model="ir.ui.view">
+        <field
+            name="name"
+        >delivery.carrier.form.inherit.sale.exception.order.restrictions.bl</field>
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form" />
+        <field name="arch" type="xml">
+            <field name="delivery_type" position="after">
+                <field name="bl_customer_collects" />
+            </field>
+        </field>
+    </record>
+</odoo>

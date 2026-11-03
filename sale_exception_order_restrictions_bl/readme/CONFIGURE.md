@@ -1,0 +1,6 @@
+- On each customer that works with purchase orders: Sales & Purchase → Purchase Order
+  Required (set on the company; its branches and addresses follow it).
+- On each pickup delivery method: Customer Collects.
+- The rules, in Sales → Configuration → Sale Exception Rules: a Sales administrator
+  archives the ones not used; a Settings administrator makes blocking the ones nobody may
+  ignore, and creates new rules with a filter.

@@ -12,7 +12,11 @@ Odoo modules by Base Lógica that extend open modules of the Odoo community.
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[sale_exception_order_restrictions_bl](sale_exception_order_restrictions_bl/) | 20.0.1.0.0 |  | The sales order is not confirmed apart from the customer's form, without the purchase order the customer requires, urgent or with its quotation expired ("Update Prices" brings today's prices): exception rules that a Sales administrator ignores; confirmed orders are locked, and an order with goods delivered or invoiced is not cancelled.
 
 [//]: # (end addons)
 

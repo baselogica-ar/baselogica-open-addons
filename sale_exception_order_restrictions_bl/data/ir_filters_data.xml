@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2026 Base Lógica (baselogica.com)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+    <!-- The urgent orders waiting for a Sales administrator, in Quotations. Odoo does not translate the name of a
+         favorite filter: it is in Spanish, the language of the companies this module is made for. -->
+    <record id="filter_sale_order_urgent_to_confirm" model="ir.filters">
+        <field name="name">Urgentes por confirmar</field>
+        <field name="model_id">sale.order</field>
+        <field name="action_id" ref="sale.action_quotations_with_onboarding" />
+        <field name="user_ids" eval="False" />
+        <field
+            name="domain"
+            eval="str([('tag_ids', 'in', [ref('crm_tag_urgent')]), ('state', 'in', ['draft', 'sent'])])"
+        />
+    </record>
+</odoo>

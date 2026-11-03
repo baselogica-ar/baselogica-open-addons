@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2026 Base Lógica (baselogica.com)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- Ignoring the exceptions and seeing the rules belong to the Sales administrator and, like everything
+         restricted, to the Settings administrator (support). -->
+    <record id="sales_team.group_sale_manager" model="res.groups">
+        <field
+            name="implied_ids"
+            eval="[Command.link(ref('base_exception.group_exception_rule_manager'))]"
+        />
+    </record>
+    <record id="base.group_system" model="res.groups">
+        <field
+            name="implied_ids"
+            eval="[Command.link(ref('base_exception.group_exception_rule_manager'))]"
+        />
+    </record>
+</odoo>

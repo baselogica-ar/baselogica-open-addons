@@ -1,0 +1,285 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_exception_order_restrictions_bl
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0+e-20261015\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-03 13:18+0000\n"
+"PO-Revision-Date: 2026-11-03 13:18+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_exception_order_restrictions_bl
+#. odoo-python
+#: code:addons/sale_exception_order_restrictions_bl/models/sale_order.py:0
+msgid "%(order)s is not an expired quotation: its prices still hold."
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#. odoo-python
+#: code:addons/sale_exception_order_restrictions_bl/models/sale_order.py:0
+msgid ""
+"%(orders)s already has goods delivered or invoiced: it is not cancelled. To "
+"undo it, return the goods and create the credit note from the order; with "
+"nothing delivered or invoiced, it can be cancelled."
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:exception.rule,description:sale_exception_order_restrictions_bl.exception_rule_urgent
+msgid ""
+"A Sales administrator confirms it: they ignore the exceptions and confirm."
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model_terms:ir.ui.view,arch_db:sale_exception_order_restrictions_bl.view_order_form
+msgid ""
+"Brings today's prices, with the same recalculation as changing the "
+"pricelist, and a new expiration date."
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#. odoo-python
+#: code:addons/sale_exception_order_restrictions_bl/models/sale_order.py:0
+msgid "Confirmed with differences:"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:ir.model,name:sale_exception_order_restrictions_bl.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:ir.model.fields,field_description:sale_exception_order_restrictions_bl.field_delivery_carrier__bl_customer_collects
+msgid "Customer Collects"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:exception.rule,name:sale_exception_order_restrictions_bl.exception_rule_purchase_order
+#: model:ir.model.fields.selection,name:sale_exception_order_restrictions_bl.selection__exception_rule__method___bl_exception_purchase_order
+msgid "Customer's purchase order missing"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:ir.model,name:sale_exception_order_restrictions_bl.model_delivery_carrier
+msgid "Delivery Method"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:exception.rule,name:sale_exception_order_restrictions_bl.exception_rule_delivery_method
+#: model:ir.model.fields.selection,name:sale_exception_order_restrictions_bl.selection__exception_rule__method___bl_exception_delivery_method
+msgid "Delivery method other than the customer's"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:ir.model.fields,field_description:sale_exception_order_restrictions_bl.field_delivery_carrier__display_name
+#: model:ir.model.fields,field_description:sale_exception_order_restrictions_bl.field_exception_rule__display_name
+#: model:ir.model.fields,field_description:sale_exception_order_restrictions_bl.field_res_partner__display_name
+#: model:ir.model.fields,field_description:sale_exception_order_restrictions_bl.field_sale_order__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:ir.model,name:sale_exception_order_restrictions_bl.model_exception_rule
+msgid "Exception Rule"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:exception.rule,name:sale_exception_order_restrictions_bl.exception_rule_expired_quotation
+msgid "Expired quotation"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:ir.model.fields,field_description:sale_exception_order_restrictions_bl.field_delivery_carrier__id
+#: model:ir.model.fields,field_description:sale_exception_order_restrictions_bl.field_exception_rule__id
+#: model:ir.model.fields,field_description:sale_exception_order_restrictions_bl.field_res_partner__id
+#: model:ir.model.fields,field_description:sale_exception_order_restrictions_bl.field_sale_order__id
+msgid "ID"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:ir.model.fields,field_description:sale_exception_order_restrictions_bl.field_exception_rule__method
+msgid "Method"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#. odoo-python
+#: code:addons/sale_exception_order_restrictions_bl/models/sale_order.py:0
+msgid "Only a Sales administrator can %(action)s."
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#. odoo-python
+#: code:addons/sale_exception_order_restrictions_bl/models/sale_order.py:0
+msgid "Order confirmed with differences"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:exception.rule,name:sale_exception_order_restrictions_bl.exception_rule_missing_delivery_method
+#: model:ir.model.fields.selection,name:sale_exception_order_restrictions_bl.selection__exception_rule__method___bl_exception_missing_delivery_method
+msgid "Order with goods and no delivery method"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:exception.rule,name:sale_exception_order_restrictions_bl.exception_rule_payment_term
+#: model:ir.model.fields.selection,name:sale_exception_order_restrictions_bl.selection__exception_rule__method___bl_exception_payment_term
+msgid "Payment terms other than the customer's"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#. odoo-python
+#: code:addons/sale_exception_order_restrictions_bl/models/sale_order.py:0
+msgid ""
+"Prices updated to today with the pricelist (manual prices and discounts were"
+" replaced): the total went from %(before)s to %(after)s; the quotation is "
+"valid until %(validity)s."
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:ir.model.fields,field_description:sale_exception_order_restrictions_bl.field_res_partner__bl_purchase_order_required
+#: model:ir.model.fields,field_description:sale_exception_order_restrictions_bl.field_res_users__bl_purchase_order_required
+msgid "Purchase Order Required"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:ir.module.module,shortdesc:base.module_sale_exception_order_restrictions_bl
+msgid "Sale Exception Order Restrictions"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:ir.model,name:sale_exception_order_restrictions_bl.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:ir.model.fields,help:sale_exception_order_restrictions_bl.field_delivery_carrier__bl_customer_collects
+msgid ""
+"The customer collects the goods (a pickup): an order may use this method "
+"although its delivery address has another one."
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:exception.rule,description:sale_exception_order_restrictions_bl.exception_rule_purchase_order
+msgid ""
+"The customer requires its purchase order: write its number in Customer "
+"Reference. If it arrives later, a Sales administrator ignores the "
+"exceptions."
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:exception.rule,description:sale_exception_order_restrictions_bl.exception_rule_missing_delivery_method
+msgid "The order carries goods: choose its delivery method."
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:exception.rule,description:sale_exception_order_restrictions_bl.exception_rule_delivery_method
+msgid ""
+"The order has another delivery method than its delivery address or its "
+"parent company. If it is only for this order, a Sales administrator ignores "
+"the exceptions; if the customer changed, fix the delivery method of the "
+"address."
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:exception.rule,description:sale_exception_order_restrictions_bl.exception_rule_payment_term
+msgid ""
+"The order has other payment terms than the customer's form. If it is only "
+"for this order, a Sales administrator ignores the exceptions; if the "
+"customer changed, fix their form."
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:ir.model.fields,help:sale_exception_order_restrictions_bl.field_res_partner__bl_purchase_order_required
+#: model:ir.model.fields,help:sale_exception_order_restrictions_bl.field_res_users__bl_purchase_order_required
+msgid ""
+"The order is not confirmed without the Customer Reference: the number of the"
+" customer's purchase order."
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:exception.rule,description:sale_exception_order_restrictions_bl.exception_rule_expired_quotation
+msgid ""
+"The quotation is past its expiration date and its prices may no longer hold:"
+" press \"Update Prices\" to bring today's prices and a new expiration date. "
+"If the customer keeps the quoted prices, a Sales administrator ignores the "
+"exceptions."
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:ir.module.module,summary:base.module_sale_exception_order_restrictions_bl
+msgid ""
+"The sales order is not confirmed apart from the customer's form, without the"
+" purchase order the customer requires, urgent or with its quotation expired "
+"(\"Update Prices\" brings today's prices): exception rules that a Sales "
+"administrator ignores; confirmed orders are locked, and an order with goods "
+"delivered or invoiced is not cancelled."
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model_terms:ir.ui.view,arch_db:sale_exception_order_restrictions_bl.view_order_form
+msgid "Update Prices"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:crm.tag,name:sale_exception_order_restrictions_bl.crm_tag_urgent
+msgid "Urgent"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:exception.rule,name:sale_exception_order_restrictions_bl.exception_rule_urgent
+#: model:ir.model.fields.selection,name:sale_exception_order_restrictions_bl.selection__exception_rule__method___bl_exception_urgent
+msgid "Urgent order"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#. odoo-python
+#: code:addons/sale_exception_order_restrictions_bl/models/sale_order.py:0
+msgid "delivery method %(order)s in the order and %(form)s in the form"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#. odoo-python
+#: code:addons/sale_exception_order_restrictions_bl/models/sale_order.py:0
+msgid "ignore the exceptions of an order"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#. odoo-python
+#: code:addons/sale_exception_order_restrictions_bl/models/sale_order.py:0
+msgid "no Customer Reference, and %(customer)s requires its purchase order"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#. odoo-python
+#: code:addons/sale_exception_order_restrictions_bl/models/sale_order.py:0
+msgid "no delivery method"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#. odoo-python
+#: code:addons/sale_exception_order_restrictions_bl/models/sale_order.py:0
+msgid "none"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#. odoo-python
+#: code:addons/sale_exception_order_restrictions_bl/models/sale_order.py:0
+msgid "payment terms %(order)s in the order and %(form)s in the form"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#. odoo-python
+#: code:addons/sale_exception_order_restrictions_bl/models/sale_order.py:0
+msgid "the order is urgent"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#. odoo-python
+#: code:addons/sale_exception_order_restrictions_bl/models/sale_order.py:0
+msgid "unlock a confirmed order"
+msgstr ""

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2026 Base Lógica (baselogica.com)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+    <!-- The tag of the urgent order: a Sales administrator confirms it. A tag name is translatable: it is in
+         English, with its Spanish translation. -->
+    <record id="crm_tag_urgent" model="crm.tag">
+        <field name="name">Urgent</field>
+    </record>
+</odoo>

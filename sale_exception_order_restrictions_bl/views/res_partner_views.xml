@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2026 Base Lógica (baselogica.com)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- "Purchase Order Required", in the Sales part of the contact: it is set on the company and followed by its
+         branches and addresses, so it is not shown on a child contact. -->
+    <record id="view_partner_form" model="ir.ui.view">
+        <field
+            name="name"
+        >res.partner.form.inherit.sale.exception.order.restrictions.bl</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//page[@name='sales_purchases']//group[@name='sale']"
+                position="inside"
+            >
+                <field name="bl_purchase_order_required" invisible="parent_id" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

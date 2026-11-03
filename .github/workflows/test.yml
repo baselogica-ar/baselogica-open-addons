@@ -23,8 +23,12 @@ jobs:
           for reqfile in requirements.txt test-requirements.txt ; do
               if [ -f ${reqfile} ] ; then
                   result=0
-                  # reject non-comment lines that contain a / (i.e. URLs, relative paths)
-                  grep "^[^#].*/" ${reqfile} || result=$?
+                  # reject non-comment lines that contain a / (i.e. URLs, relative paths), except an OCA
+                  # migration not yet released for this version, pinned to its exact commit (the same the
+                  # image uses); it leaves test-requirements.txt once the OCA releases it
+                  grep "^[^#].*/" ${reqfile} \
+                    | grep -v -E "^odoo-addon-[a-z0-9_]+ @ git\+https://github\.com/OCA/[A-Za-z0-9_.-]+\.git@[0-9a-f]{40}#subdirectory=[a-z0-9_]+$" \
+                    || result=$?
                   if [ $result -eq 0 ] ; then
                       echo "Unreleased dependencies found in ${reqfile}."
                       exit 1

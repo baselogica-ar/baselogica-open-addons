@@ -66,6 +66,9 @@ repos:
           - --if-source-changed
           - --keep-source-digest
           - --convert-fragments-to-markdown
+      # the table of addons of README.md: in the OCA its bot updates it after each merge;
+      # without that bot, this hook keeps it up to date on each commit
+      - id: oca-gen-addons-table
       - id: oca-gen-external-dependencies
   - repo: https://github.com/OCA/odoo-pre-commit-hooks
     rev: v0.2.27

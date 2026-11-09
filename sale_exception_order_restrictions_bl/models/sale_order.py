@@ -197,55 +197,37 @@ class SaleOrder(models.Model):
     def _bl_exception_credit_limit(self):
         return self.filtered(lambda order: order._bl_credit_limit_exceeded())
 
-    def _action_cancel(self):
-        """An order with goods delivered or invoiced is not cancelled: Odoo cancels
-        only what is pending and leaves the invoice and the delivered goods as they
-        are, so the cancelled order would be wrong. It is undone with the return and
-        the credit note from the order; with nothing delivered or invoiced, it is
-        cancelled. It lives here and not on the button: "Cancel" from the list (the
-        native wizard) and the portal call this method directly."""
-        moved = self.filtered(
-            lambda order: any(
-                not line.product_uom_id.is_zero(line.qty_delivered)
-                or not line.product_uom_id.is_zero(line.qty_invoiced)
-                for line in order.order_line
-                if not line.display_type
-            )
-        )
-        if moved:
-            raise UserError(
-                self.env._(
-                    "%(orders)s already has goods delivered or invoiced: it is not "
-                    "cancelled. To undo it, return the "
-                    "goods and create the credit note from the order; with nothing "
-                    "delivered or invoiced, it can be "
-                    "cancelled.",
-                    orders=", ".join(moved.mapped("name")),
-                )
-            )
-        return super()._action_cancel()
+    def _bl_note_lang(self):
+        """The language of the note and the activity of an order confirmed with
+        differences: its salesperson's, who reads them, or else its company's. The
+        payment of an online order confirms it from an automated process, which runs
+        without a language of its own."""
+        self.ensure_one()
+        return self.user_id.lang or self.company_id.partner_id.lang or self.env.lang
 
     def action_confirm(self):
         """What was confirmed with differences (the portal, an automated process or
         with the exceptions ignored) stays in the note of the order; if nobody saw
-        it, also in an activity for its salesperson."""
+        it, also in an activity for its salesperson. Both in the salesperson's
+        language."""
         automatic = self._bl_confirms_without_brakes()
         notes = {}
         for order in self:
-            texts = order._bl_confirmation_differences()
+            order_in_lang = order.with_context(lang=order._bl_note_lang())
+            texts = order_in_lang._bl_confirmation_differences()
             if texts and (automatic or order.ignore_exception):
-                notes[order] = texts
+                notes[order] = (order_in_lang.env, texts)
         res = super().action_confirm()
-        for order, texts in notes.items():
+        for order, (env_in_lang, texts) in notes.items():
             body = Markup("<p>{}</p><ul>{}</ul>").format(
-                self.env._("Confirmed with differences:"),
+                env_in_lang._("Confirmed with differences:"),
                 Markup().join(Markup("<li>{}</li>").format(text) for text in texts),
             )
             order.message_post(body=body, subtype_xmlid="mail.mt_note")
             if automatic and order.user_id:
                 order.activity_schedule(
                     "mail.mail_activity_data_todo",
-                    summary=self.env._("Order confirmed with differences"),
+                    summary=env_in_lang._("Order confirmed with differences"),
                     note=body,
                     user_id=order.user_id.id,
                 )

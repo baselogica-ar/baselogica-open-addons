@@ -1,7 +1,6 @@
 # Copyright 2026 Base Lógica (baselogica.com)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import Command
-from odoo.exceptions import UserError
 from odoo.tests import Form, TransactionCase, new_test_user, tagged
 
 
@@ -217,34 +216,3 @@ class TestSaleOrderRestrictions(TransactionCase):
         self.assertFalse(self._differences(order))
         self._confirm(order, self.salesman)
         self.assertEqual(order.state, "sale")
-
-    def _mass_cancel(self, order):
-        """ "Cancel" from the list: the native wizard, which calls the cancellation
-        directly."""
-        return (
-            self.env["sale.mass.cancel.orders"]
-            .create({"sale_order_ids": [Command.set(order.ids)]})
-            .action_mass_cancel()
-        )
-
-    def test_delivered_or_invoiced_order_is_not_cancelled(self):
-        """With something delivered, the order is not cancelled, neither from the
-        form nor from the list: it is undone with the return and the credit note;
-        with nothing delivered or invoiced, it is cancelled."""
-        order = self._order(carrier=self.zone)
-        self._confirm(order, self.salesman)
-        line = order.order_line.filtered(lambda line: line.product_id == self.product)
-        line.sudo().qty_delivered = 1
-        with self.assertRaisesRegex(UserError, "delivered or invoiced"):
-            order.sudo()._action_cancel()
-        with self.assertRaisesRegex(UserError, "delivered or invoiced"):
-            self._mass_cancel(order)
-        line.sudo().qty_delivered = 0
-        order.sudo()._action_cancel()
-        self.assertEqual(order.state, "cancel")
-
-    def test_quotation_cancels(self):
-        """A quotation, with nothing delivered or invoiced, is cancelled as usual."""
-        order = self._order(carrier=self.zone)
-        order.with_user(self.salesman).action_cancel()
-        self.assertEqual(order.state, "cancel")

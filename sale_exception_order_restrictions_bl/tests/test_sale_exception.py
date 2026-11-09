@@ -285,6 +285,25 @@ class TestSaleException(TransactionCase):
         self.assertIn("Test rule with a filter", note.body)
         self.assertEqual(order.activity_ids.user_id, self.salesman)
 
+    def test_automated_note_in_the_salesperson_language(self):
+        """The payment of an online order confirms it from an automated process,
+        which runs without a language of its own: the note and the activity go in
+        the language of the salesperson, who reads them."""
+        self.env["res.lang"]._activate_lang("es_419")
+        self.env["ir.module.module"]._load_module_terms(
+            ["sale_exception_order_restrictions_bl"], ["es_419"], overwrite=True
+        )
+        self.salesman.lang = "es_419"
+        order = self._order(carrier=self.other_zone)
+        order.with_context(lang="en_US").sudo().action_confirm()
+        self.assertEqual(order.state, "sale")
+        note = order.message_ids.filtered(
+            lambda m: "Confirmada con diferencias" in (m.body or "")
+        )
+        self.assertTrue(note, "The note is not in the salesperson's language")
+        self.assertIn("método de entrega", note.body)
+        self.assertEqual(order.activity_ids.summary, "Orden confirmada con diferencias")
+
     def test_expired_quotation(self):
         """The expired quotation stops the salesperson; the one expiring today does
         not. The Sales administrator ignores the exceptions and confirms it with its

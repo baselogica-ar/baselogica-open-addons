@@ -44,10 +44,10 @@ exceptions. Each restriction is a rule of the sale exception engine:
   prices with the same recalculation as changing the pricelist, today's
   date and a new expiration, and leaves the total before and after in
   the history.
-- **Credit limit**, archived: the order that takes the customer over its
+- **Credit limit**, off: the order that takes the customer over its
   credit limit, as the quotation warns (what the customer owes, its
   confirmed orders to invoice and this order). The company that wants to
-  stop it activates the rule.
+  stop it turns the rule on.
 
 Besides:
 
@@ -57,8 +57,6 @@ Besides:
   order is confirmed with the differences in its note and an activity
   for its salesperson.
 - Confirmed orders are locked for everyone.
-- An order with goods delivered or invoiced is not cancelled: it is
-  undone with the return and the credit note.
 
 **Table of contents**
 
@@ -72,16 +70,18 @@ Configuration
   Purchase Order Required (set on the company; its branches and
   addresses follow it).
 - On each pickup delivery method: Customer Collects.
-- The rules, in Sales → Configuration → Sale Exception Rules: a Sales
-  administrator archives the ones not used (a company that sells goods
-  counted in units in fractions archives "Quantity with decimals"); a
-  Settings administrator makes blocking the ones nobody may ignore, and
-  creates new rules with a filter.
+- The rules, in Sales → Configuration → Sales Orders → Sale Exception
+  Rules: a Sales administrator turns off the ones not used with their
+  Active toggle (a company that sells goods counted in units in
+  fractions turns off "Quantity with decimals"); a Settings
+  administrator makes blocking the ones nobody may ignore, and creates
+  new rules with a filter.
 - To stop the orders over the credit limit: Accounting → Configuration →
   Settings → Sales Credit Limit, with its Default Credit Limit, and each
   customer's own limit in its form (Credit Limits); then, in Sale
-  Exception Rules, the "Archived" filter and "Unarchive" on "Customer
-  over its credit limit".
+  Exception Rules, a Sales administrator turns on "Customer over its
+  credit limit" with its Active toggle (the list shows the rules on and
+  off).
 
 Usage
 =====

@@ -16,9 +16,9 @@ rule of the sale exception engine:
   only on the expired quotation, brings today's prices with the same recalculation as
   changing the pricelist, today's date and a new expiration, and leaves the total before
   and after in the history.
-- **Credit limit**, archived: the order that takes the customer over its credit limit, as
-  the quotation warns (what the customer owes, its confirmed orders to invoice and this
-  order). The company that wants to stop it activates the rule.
+- **Credit limit**, off: the order that takes the customer over its credit limit, as the
+  quotation warns (what the customer owes, its confirmed orders to invoice and this
+  order). The company that wants to stop it turns the rule on.
 
 Besides:
 
@@ -27,5 +27,3 @@ Besides:
 - The portal and automated processes are not stopped by any rule: the order is confirmed
   with the differences in its note and an activity for its salesperson.
 - Confirmed orders are locked for everyone.
-- An order with goods delivered or invoiced is not cancelled: it is undone with the return
-  and the credit note.

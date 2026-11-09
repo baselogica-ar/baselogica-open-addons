@@ -68,6 +68,19 @@
         <field name="method">_bl_exception_fractional_quantity</field>
         <field name="is_blocking" eval="True" />
     </record>
+    <!-- The credit limit: Odoo warns about it on the quotation (with the customer credit limit turned on in Accounting)
+         and does not stop it. The rule comes archived: the company that wants to stop it activates it. -->
+    <record id="exception_rule_credit_limit" model="exception.rule">
+        <field name="name">Customer over its credit limit</field>
+        <field
+            name="description"
+        >The order takes the customer over its credit limit, as the quotation warns. If the payment is on its way or the order is approved, a Sales administrator ignores the exceptions; if the limit changed, fix it in the customer's form.</field>
+        <field name="sequence" eval="70" />
+        <field name="model">sale.order</field>
+        <field name="exception_type">by_method</field>
+        <field name="method">_bl_exception_credit_limit</field>
+        <field name="active" eval="False" />
+    </record>
     <!-- The expired quotation: Odoo stops it in the portal ("This offer expired!"), not in the backend. A rule with a
          filter on its "Expired" field, without a method of its own. Duplicating it does not reprice it (Odoo copies the
          prices and only renews the expiration): "Update Prices", shown on the expired quotation, reprices it. -->

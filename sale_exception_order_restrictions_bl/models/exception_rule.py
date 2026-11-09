@@ -12,6 +12,7 @@ METHODS = [
     ("_bl_exception_purchase_order", "Customer's purchase order missing"),
     ("_bl_exception_urgent", "Urgent order"),
     ("_bl_exception_fractional_quantity", "Goods quantity with decimals"),
+    ("_bl_exception_credit_limit", "Customer over its credit limit"),
 ]
 
 

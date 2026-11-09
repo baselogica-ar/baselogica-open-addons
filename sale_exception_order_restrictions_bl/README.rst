@@ -44,6 +44,10 @@ exceptions. Each restriction is a rule of the sale exception engine:
   prices with the same recalculation as changing the pricelist, today's
   date and a new expiration, and leaves the total before and after in
   the history.
+- **Credit limit**, archived: the order that takes the customer over its
+  credit limit, as the quotation warns (what the customer owes, its
+  confirmed orders to invoice and this order). The company that wants to
+  stop it activates the rule.
 
 Besides:
 
@@ -73,6 +77,11 @@ Configuration
   counted in units in fractions archives "Quantity with decimals"); a
   Settings administrator makes blocking the ones nobody may ignore, and
   creates new rules with a filter.
+- To stop the orders over the credit limit: Accounting → Configuration →
+  Settings → Sales Credit Limit, with its Default Credit Limit, and each
+  customer's own limit in its form (Credit Limits); then, in Sale
+  Exception Rules, the "Archived" filter and "Unarchive" on "Customer
+  over its credit limit".
 
 Usage
 =====

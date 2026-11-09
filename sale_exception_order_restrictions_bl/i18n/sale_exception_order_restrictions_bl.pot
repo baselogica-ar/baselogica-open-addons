@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 20.0+e-20261015\n"
+"Project-Id-Version: Odoo Server 20.0+e-20261102\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-03 15:46+0000\n"
-"PO-Revision-Date: 2026-11-03 15:46+0000\n"
+"POT-Creation-Date: 2026-11-09 21:37+0000\n"
+"PO-Revision-Date: 2026-11-09 21:37+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -184,6 +184,12 @@ msgid "Customer Collects"
 msgstr ""
 
 #. module: sale_exception_order_restrictions_bl
+#: model:exception.rule,name:sale_exception_order_restrictions_bl.exception_rule_credit_limit
+#: model:ir.model.fields.selection,name:sale_exception_order_restrictions_bl.selection__exception_rule__method___bl_exception_credit_limit
+msgid "Customer over its credit limit"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
 #: model:exception.rule,name:sale_exception_order_restrictions_bl.exception_rule_purchase_order
 #: model:ir.model.fields.selection,name:sale_exception_order_restrictions_bl.selection__exception_rule__method___bl_exception_purchase_order
 msgid "Customer's purchase order missing"
@@ -333,6 +339,15 @@ msgstr ""
 msgid ""
 "The order is not confirmed without the Customer Reference: the number of the"
 " customer's purchase order."
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#: model:exception.rule,description:sale_exception_order_restrictions_bl.exception_rule_credit_limit
+msgid ""
+"The order takes the customer over its credit limit, as the quotation warns. "
+"If the payment is on its way or the order is approved, a Sales administrator"
+" ignores the exceptions; if the limit changed, fix it in the customer's "
+"form."
 msgstr ""
 
 #. module: sale_exception_order_restrictions_bl

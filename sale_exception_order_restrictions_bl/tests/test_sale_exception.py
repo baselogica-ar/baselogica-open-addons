@@ -189,6 +189,21 @@ class TestSaleException(TransactionCase):
         order.with_user(self.salesman).action_confirm()
         self.assertEqual(order.state, "sale")
 
+    def test_archived_rule_leaves_no_note(self):
+        """What only an archived rule checks leaves no note: the portal confirms the
+        order with another delivery method without a note or an activity for the
+        salesperson, because the company archived that rule."""
+        self.rules["exception_rule_delivery_method"].active = False
+        order = self._order(carrier=self.other_zone)
+        order.with_user(self.portal).sudo()._validate_order()
+        self.assertEqual(order.state, "sale")
+        self.assertFalse(
+            order.message_ids.filtered(
+                lambda m: "Confirmed with differences" in (m.body or "")
+            )
+        )
+        self.assertFalse(order.activity_ids)
+
     def test_blocking_rule_cannot_be_ignored(self):
         """Nobody ignores a blocking rule, not even the Sales administrator."""
         self.rules["exception_rule_payment_term"].is_blocking = True

@@ -11,12 +11,13 @@ class SaleOrder(models.Model):
     """The restrictions of the order at confirmation, as rules of the community
     exception engine (``sale_exception``): Odoo does not stop an order that departs
     from the customer's form, that lacks the purchase order the customer requires or
-    that is urgent, and it stops the expired quotation only in the portal. Each
-    restriction is a rule "by method" (what it checks lives here, with its tests: an
-    Odoo filter cannot compare the order with the customer's form), except the
-    expired quotation, a rule with a filter on "Expired", the native field; each
-    company archives a rule or makes it blocking, and creates its own rules with a
-    filter. The portal and automated processes are not stopped by any rule: they
+    that is urgent, it only warns about the customer over its credit limit, and it
+    stops the expired quotation only in the portal. Each restriction is a rule "by
+    method" (what it checks lives here, with its tests: an Odoo filter cannot compare
+    the order with the customer's form), except the expired quotation, a rule with a
+    filter on "Expired", the native field; each company archives a rule or makes it
+    blocking, and creates its own rules with a filter. The credit limit rule comes
+    archived. The portal and automated processes are not stopped by any rule: they
     confirm with a note and an activity for the salesperson."""
 
     _inherit = "sale.order"
@@ -122,28 +123,45 @@ class SaleOrder(models.Model):
         )
         return bool(tag) and tag in self.tag_ids
 
+    def _bl_credit_limit_exceeded(self):
+        """The order that takes the customer over its credit limit: the warning Odoo
+        shows on the quotation (what the customer owes, its confirmed orders to
+        invoice and this order, against the limit of its form or the company's), only
+        with the customer credit limit turned on in Accounting. The rule comes
+        archived: each company activates it."""
+        self.ensure_one()
+        warning = self.partner_credit_warning
+        return ". ".join(warning.splitlines()) if warning else False
+
     def _bl_confirmation_differences(self):
         """What sets the order apart from the customer's form, what it lacks and the
-        filter rules it matches, as texts of the note."""
+        filter rules it matches, as texts of the note: only what an active rule
+        checks, because what a company archived does not matter to it."""
         self.ensure_one()
-        texts = (
-            self._bl_payment_term_difference(),
-            self._bl_missing_delivery_method(),
-            self._bl_delivery_method_difference(),
-            self._bl_missing_purchase_order(),
-            self._bl_is_urgent() and self.env._("the order is urgent"),
-            self._bl_fractional_quantity(),
-        )
-        rules = (
-            self.env["exception.rule"]
-            .sudo()
-            .search(
-                [("model", "=", "sale.order"), ("exception_type", "=", "by_domain")]
+        rules = self.env["exception.rule"].sudo().search([("model", "=", "sale.order")])
+        methods = set(
+            rules.filtered(lambda rule: rule.exception_type == "by_method").mapped(
+                "method"
             )
         )
+        checks = {
+            "_bl_exception_payment_term": self._bl_payment_term_difference,
+            "_bl_exception_missing_delivery_method": self._bl_missing_delivery_method,
+            "_bl_exception_delivery_method": self._bl_delivery_method_difference,
+            "_bl_exception_purchase_order": self._bl_missing_purchase_order,
+            "_bl_exception_urgent": lambda: (
+                self._bl_is_urgent() and self.env._("the order is urgent")
+            ),
+            "_bl_exception_fractional_quantity": self._bl_fractional_quantity,
+            "_bl_exception_credit_limit": self._bl_credit_limit_exceeded,
+        }
+        texts = [check() for method, check in checks.items() if method in methods]
         # the filter rules each company creates, by their name
         filters = [
-            rule.name for rule in rules if self.filtered_domain(rule._get_domain())
+            rule.name
+            for rule in rules
+            if rule.exception_type == "by_domain"
+            and self.filtered_domain(rule._get_domain())
         ]
         return [text for text in texts if text] + filters
 
@@ -175,6 +193,9 @@ class SaleOrder(models.Model):
 
     def _bl_exception_fractional_quantity(self):
         return self.filtered(lambda order: order._bl_fractional_quantity())
+
+    def _bl_exception_credit_limit(self):
+        return self.filtered(lambda order: order._bl_credit_limit_exceeded())
 
     def _action_cancel(self):
         """An order with goods delivered or invoiced is not cancelled: Odoo cancels

@@ -16,6 +16,9 @@ rule of the sale exception engine:
   only on the expired quotation, brings today's prices with the same recalculation as
   changing the pricelist, today's date and a new expiration, and leaves the total before
   and after in the history.
+- **Credit limit**, archived: the order that takes the customer over its credit limit, as
+  the quotation warns (what the customer owes, its confirmed orders to invoice and this
+  order). The company that wants to stop it activates the rule.
 
 Besides:
 

@@ -8,7 +8,7 @@
     "administrator ignores; never with a quantity with decimals of goods counted in "
     "units; confirmed orders are locked, and an order with goods delivered or invoiced "
     "is not cancelled.",
-    "version": "20.0.1.1.0",
+    "version": "20.0.1.2.0",
     "category": "Sales/Sales",
     "author": "Base Lógica",
     "website": "https://github.com/baselogica-ar/baselogica-open-addons",

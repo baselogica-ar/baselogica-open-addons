@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 20.0+e-20261102\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-09 23:08+0000\n"
-"PO-Revision-Date: 2026-11-09 23:08+0000\n"
+"POT-Creation-Date: 2026-11-09 23:40+0000\n"
+"PO-Revision-Date: 2026-11-09 23:40+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -83,6 +83,9 @@ msgid ""
 "  order is confirmed with the differences in its note and an activity\n"
 "  for its salesperson.\n"
 "- Confirmed orders are locked for everyone.\n"
+"- An order with quantities delivered or invoiced is not cancelled,\n"
+"  neither from the order nor from the list: it is undone with the return\n"
+"  and the credit note, and then it is cancelled.\n"
 "\n"
 "**Table of contents**\n"
 "\n"
@@ -366,7 +369,8 @@ msgid ""
 " purchase order the customer requires, urgent or with its quotation expired "
 "(\"Update Prices\" brings today's prices): exception rules that a Sales "
 "administrator ignores; never with a quantity with decimals of goods counted "
-"in units; confirmed orders are locked."
+"in units; confirmed orders are locked, and an order with quantities "
+"delivered or invoiced is not cancelled."
 msgstr ""
 
 #. module: sale_exception_order_restrictions_bl
@@ -383,6 +387,15 @@ msgstr ""
 #: model:exception.rule,name:sale_exception_order_restrictions_bl.exception_rule_urgent
 #: model:ir.model.fields.selection,name:sale_exception_order_restrictions_bl.selection__exception_rule__method___bl_exception_urgent
 msgid "Urgent order"
+msgstr ""
+
+#. module: sale_exception_order_restrictions_bl
+#. odoo-python
+#: code:addons/sale_exception_order_restrictions_bl/models/sale_order.py:0
+msgid ""
+"With quantities delivered or invoiced, the order is not cancelled: "
+"%(orders)s. Return what was delivered and create the credit note of what was"
+" invoiced; then it can be cancelled."
 msgstr ""
 
 #. module: sale_exception_order_restrictions_bl

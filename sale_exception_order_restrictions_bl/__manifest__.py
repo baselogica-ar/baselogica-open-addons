@@ -6,8 +6,9 @@
     "without the purchase order the customer requires, urgent or with its quotation "
     'expired ("Update Prices" brings today\'s prices): exception rules that a Sales '
     "administrator ignores; never with a quantity with decimals of goods counted in "
-    "units; confirmed orders are locked.",
-    "version": "20.0.1.3.0",
+    "units; confirmed orders are locked, and an order with quantities delivered or "
+    "invoiced is not cancelled.",
+    "version": "20.0.1.4.0",
     "category": "Sales/Sales",
     "author": "Base Lógica",
     "website": "https://github.com/baselogica-ar/baselogica-open-addons",

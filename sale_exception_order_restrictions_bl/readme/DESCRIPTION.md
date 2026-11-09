@@ -27,3 +27,6 @@ Besides:
 - The portal and automated processes are not stopped by any rule: the order is confirmed
   with the differences in its note and an activity for its salesperson.
 - Confirmed orders are locked for everyone.
+- An order with quantities delivered or invoiced is not cancelled, neither from the
+  order nor from the list: it is undone with the return and the credit note, and then
+  it is cancelled.

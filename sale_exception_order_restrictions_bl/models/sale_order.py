@@ -4,6 +4,7 @@ from markupsafe import Markup
 
 from odoo import fields, models
 from odoo.exceptions import AccessError, UserError
+from odoo.tools import float_is_zero
 from odoo.tools.misc import format_date, formatLang
 
 
@@ -196,6 +197,36 @@ class SaleOrder(models.Model):
 
     def _bl_exception_credit_limit(self):
         return self.filtered(lambda order: order._bl_credit_limit_exceeded())
+
+    def _action_cancel(self):
+        """An order with quantities delivered or invoiced is not cancelled: Odoo
+        cancels only what is pending and leaves the delivered goods and the posted
+        invoice as they are, so the cancelled order would contradict them. It is
+        undone with the return and the credit note, and then it is cancelled; a
+        draft invoice does not count, because Odoo cancels it with the order. It
+        lives here and not on the button: "Cancel" from the list (the native wizard)
+        calls this method directly, without the lock of confirmed orders. The
+        precision of the quantities, not the unit of each line: the line of a down
+        payment has none."""
+        digits = self.env["decimal.precision"].precision_get("Product Unit")
+        moved = self.filtered(
+            lambda order: any(
+                not float_is_zero(line.qty_delivered, precision_digits=digits)
+                or not float_is_zero(line.qty_invoiced_posted, precision_digits=digits)
+                for line in order.order_line
+                if not line.display_type
+            )
+        )
+        if moved:
+            raise UserError(
+                self.env._(
+                    "With quantities delivered or invoiced, the order is not "
+                    "cancelled: %(orders)s. Return what was delivered and create the "
+                    "credit note of what was invoiced; then it can be cancelled.",
+                    orders=", ".join(moved.mapped("name")),
+                )
+            )
+        return super()._action_cancel()
 
     def _bl_note_lang(self):
         """The language of the note and the activity of an order confirmed with

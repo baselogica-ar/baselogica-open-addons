@@ -16,7 +16,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[sale_exception_order_restrictions_bl](sale_exception_order_restrictions_bl/) | 20.0.1.4.0 |  | The sales order is not confirmed apart from the customer's form, without the purchase order the customer requires, urgent or with its quotation expired ("Update Prices" brings today's prices): exception rules that a Sales administrator ignores; never with a quantity with decimals of goods counted in units; confirmed orders are locked, and an order with quantities delivered or invoiced is not cancelled.
+[sale_exception_order_restrictions_bl](sale_exception_order_restrictions_bl/) | 20.0.1.4.1 |  | Sales orders that follow the customer's form: exception rules, locked confirmed orders and no cancelling of what was delivered or invoiced.
 
 [//]: # (end addons)
 

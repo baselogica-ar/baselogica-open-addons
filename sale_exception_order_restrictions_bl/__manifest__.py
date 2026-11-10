@@ -2,13 +2,9 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Sale Exception Order Restrictions",
-    "summary": "The sales order is not confirmed apart from the customer's form, "
-    "without the purchase order the customer requires, urgent or with its quotation "
-    'expired ("Update Prices" brings today\'s prices): exception rules that a Sales '
-    "administrator ignores; never with a quantity with decimals of goods counted in "
-    "units; confirmed orders are locked, and an order with quantities delivered or "
-    "invoiced is not cancelled.",
-    "version": "20.0.1.4.0",
+    "summary": "Sales orders that follow the customer's form: exception rules, locked "
+    "confirmed orders and no cancelling of what was delivered or invoiced.",
+    "version": "20.0.1.4.1",
     "category": "Sales/Sales",
     "author": "Base Lógica",
     "website": "https://github.com/baselogica-ar/baselogica-open-addons",

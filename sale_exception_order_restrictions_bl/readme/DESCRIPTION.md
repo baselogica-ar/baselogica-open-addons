@@ -1,3 +1,11 @@
+Odoo confirms a sales order as it was typed: with payment terms or a delivery method other
+than the customer's, without the purchase order number the customer requires, with the old
+prices of an expired quotation, or with 1.5 units of a product counted in units. Each of
+those reaches the delivery, the invoice or the collection, and is found late. This module
+turns each check into a rule of the exception engine of the Odoo community
+(`sale_exception`), so the order stops before it is confirmed, and keeps confirmed orders
+from being changed or cancelled once goods left or were invoiced.
+
 The sales order is not confirmed while something sets it apart from the customer's form,
 until it is fixed or a Sales administrator ignores its exceptions. Each restriction is a
 rule of the sale exception engine:

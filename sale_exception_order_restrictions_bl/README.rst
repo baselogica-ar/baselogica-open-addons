@@ -22,6 +22,16 @@ Sale Exception Order Restrictions
 
 |badge1| |badge2| |badge3|
 
+Odoo confirms a sales order as it was typed: with payment terms or a
+delivery method other than the customer's, without the purchase order
+number the customer requires, with the old prices of an expired
+quotation, or with 1.5 units of a product counted in units. Each of
+those reaches the delivery, the invoice or the collection, and is found
+late. This module turns each check into a rule of the exception engine
+of the Odoo community (``sale_exception``), so the order stops before it
+is confirmed, and keeps confirmed orders from being changed or cancelled
+once goods left or were invoiced.
+
 The sales order is not confirmed while something sets it apart from the
 customer's form, until it is fixed or a Sales administrator ignores its
 exceptions. Each restriction is a rule of the sale exception engine:
@@ -89,8 +99,34 @@ Configuration
 Usage
 =====
 
-Confirm the order as usual. When it is stopped, fix what the exception
-says, or a Sales administrator confirms it with "Ignore Exceptions".
+1. Confirm the order as usual.
+2. When it is stopped, the order shows each exception with what to fix:
+   fix it and confirm again.
+3. If the difference is right for this order only, a Sales administrator
+   confirms it with "Ignore Exceptions". A blocking rule, like a
+   quantity with decimals, is never ignored: the line is fixed.
+4. On an expired quotation, "Update Prices" brings today's prices before
+   confirming.
+
+|A sales order stopped by two exceptions|
+
+.. |A sales order stopped by two exceptions| image:: https://raw.githubusercontent.com/baselogica-ar/baselogica-open-addons/20.0/sale_exception_order_restrictions_bl/static/description/sale-order-exceptions.png
+
+Known issues / Roadmap
+======================
+
+- Only sales orders are checked: an invoice created directly in
+  Invoicing is not stopped.
+- The prices and discounts typed on the order are not checked against
+  the pricelist; only an expired quotation gets today's prices, with
+  "Update Prices".
+- The portal and automated processes, like an online payment, are not
+  stopped: the order is confirmed and the differences go to its note,
+  with an activity for its salesperson.
+- The credit limit rule is off by default: a company turns it on, and it
+  uses the native credit limits.
+- A delivered or invoiced order is undone with the return and the credit
+  note, by hand, before it can be cancelled.
 
 Bug Tracker
 ===========

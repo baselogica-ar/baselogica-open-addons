@@ -61,6 +61,11 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      - name: Leave out the addons that extend an unpublished module
+        # account_interests, a module of the Odoo community, is not published as a
+        # package, so this CI cannot install it: the addons that extend it are tested
+        # with it installed, in the ci-local status of each commit
+        run: rm -r account_interests_fiscal_position_bl
       - name: Install addons and dependencies
         run: oca_install_addons
       - name: Check licenses

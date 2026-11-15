@@ -16,6 +16,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[account_interests_fiscal_position_bl](account_interests_fiscal_position_bl/) | 20.0.1.0.0 |  | The late payment interest note carries the VAT of the overdue invoices it charges, not the one of the customer's form.
 [sale_exception_order_restrictions_bl](sale_exception_order_restrictions_bl/) | 20.0.1.4.1 |  | Sales orders that follow the customer's form: exception rules, locked confirmed orders and no cancelling of what was delivered or invoiced.
 
 [//]: # (end addons)

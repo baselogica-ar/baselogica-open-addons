@@ -188,7 +188,9 @@ class TestInterestFiscalPosition(AccountTestInvoicingCommon):
                 "amount": invoice.amount_residual,
             }
         ).action_create_payments()
-        self.assertEqual(invoice.payment_state, "paid")
+        # Nothing left to pay. With the Accounting app the invoice stays "in payment"
+        # until the bank statement is reconciled, and the note does not depend on it.
+        self.assertTrue(invoice.currency_id.is_zero(invoice.amount_residual))
         note = self._note(customer)
         self.assertEqual(note.fiscal_position_id, self.position_without_vat)
         self.assertEqual(note.invoice_line_ids.tax_ids, self.tax_without_vat)

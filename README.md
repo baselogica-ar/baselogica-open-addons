@@ -29,4 +29,4 @@ This repository and every module in it are licensed under [AGPL-3.0](LICENSE), a
 modules they extend.
 
 ----
-[Base Lógica](https://baselogica.com) implements and hosts Odoo.
+[Base Lógica](https://baselogica.com) implements and hosts Odoo Enterprise, proudly as part of the Odoo community.
